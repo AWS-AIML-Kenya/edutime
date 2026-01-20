@@ -180,8 +180,8 @@ resource "aws_api_gateway_integration" "timetables_get" {
   http_method = aws_api_gateway_method.timetables_get.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "timetables_post" {
@@ -197,8 +197,8 @@ resource "aws_api_gateway_integration" "timetables_post" {
   http_method = aws_api_gateway_method.timetables_post.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
 }
 
 # Individual Timetable Methods
@@ -215,8 +215,8 @@ resource "aws_api_gateway_integration" "timetables_id_get" {
   http_method = aws_api_gateway_method.timetables_id_get.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "timetables_id_put" {
@@ -232,8 +232,8 @@ resource "aws_api_gateway_integration" "timetables_id_put" {
   http_method = aws_api_gateway_method.timetables_id_put.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "timetables_id_delete" {
@@ -249,8 +249,8 @@ resource "aws_api_gateway_integration" "timetables_id_delete" {
   http_method = aws_api_gateway_method.timetables_id_delete.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
 }
 
 # Venues Methods
@@ -267,8 +267,8 @@ resource "aws_api_gateway_integration" "venues_get" {
   http_method = aws_api_gateway_method.venues_get.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "venues_id_get" {
@@ -284,8 +284,8 @@ resource "aws_api_gateway_integration" "venues_id_get" {
   http_method = aws_api_gateway_method.venues_id_get.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.timetable_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "venues_conflicts_post" {
@@ -301,8 +301,8 @@ resource "aws_api_gateway_integration" "venues_conflicts_post" {
   http_method = aws_api_gateway_method.venues_conflicts_post.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.venue_management_lambda_arn}/invocations"
 }
 
 # Notification Methods
@@ -319,8 +319,8 @@ resource "aws_api_gateway_integration" "notifications_venue_change_post" {
   http_method = aws_api_gateway_method.notifications_venue_change_post.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "notifications_attendance_post" {
@@ -336,8 +336,8 @@ resource "aws_api_gateway_integration" "notifications_attendance_post" {
   http_method = aws_api_gateway_method.notifications_attendance_post.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_method" "notifications_reminder_post" {
@@ -353,8 +353,8 @@ resource "aws_api_gateway_integration" "notifications_reminder_post" {
   http_method = aws_api_gateway_method.notifications_reminder_post.http_method
 
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
+  type                    = "AWS_PROXY"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.notification_lambda_arn}/invocations"
 }
 
 # Lambda Permissions for API Gateway

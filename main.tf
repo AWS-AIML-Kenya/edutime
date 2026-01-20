@@ -42,7 +42,7 @@ data "aws_caller_identity" "current" {}
 module "vpc" {
   source = "./modules/vpc"
 
-  project_name        = var.project_name
+  project_name       = var.project_name
   environment        = var.environment
   vpc_cidr           = var.vpc_cidr
   availability_zones = data.aws_availability_zones.available.names
@@ -73,8 +73,8 @@ module "rds" {
 module "lambda" {
   source = "./modules/lambda"
 
-  project_name              = var.project_name
-  environment               = var.environment
+  project_name             = var.project_name
+  environment              = var.environment
   vpc_id                   = module.vpc.vpc_id
   private_subnets          = module.vpc.private_subnets
   lambda_security_group_id = module.rds.lambda_security_group_id
@@ -82,21 +82,21 @@ module "lambda" {
   rds_port                 = module.rds.db_port
   db_name                  = module.rds.db_name
   db_password              = random_password.db_password.result
-  sns_topic_arn           = module.sns.topic_arn
+  sns_topic_arn            = module.sns.topic_arn
 }
 
 # API Gateway module
 module "api_gateway" {
   source = "./modules/api_gateway"
 
-  project_name                    = var.project_name
-  environment                     = var.environment
-  timetable_lambda_arn           = module.lambda.timetable_lambda_arn
-  venue_management_lambda_arn    = module.lambda.venue_management_lambda_arn
-  notification_lambda_arn        = module.lambda.notification_lambda_arn
-  timetable_lambda_function_name = module.lambda.timetable_lambda_function_name
+  project_name                          = var.project_name
+  environment                           = var.environment
+  timetable_lambda_arn                  = module.lambda.timetable_lambda_arn
+  venue_management_lambda_arn           = module.lambda.venue_management_lambda_arn
+  notification_lambda_arn               = module.lambda.notification_lambda_arn
+  timetable_lambda_function_name        = module.lambda.timetable_lambda_function_name
   venue_management_lambda_function_name = module.lambda.venue_management_lambda_function_name
-  notification_lambda_function_name = module.lambda.notification_lambda_function_name
+  notification_lambda_function_name     = module.lambda.notification_lambda_function_name
 }
 
 # SNS module

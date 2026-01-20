@@ -74,7 +74,7 @@ data "archive_file" "lambda_layer" {
   output_path = "lambda_layer.zip"
 
   source {
-    content = <<EOF
+    content  = <<EOF
 # Lambda Layer Dependencies
 # This is a placeholder. In production, you would include:
 # - psycopg2-binary for PostgreSQL connection
@@ -93,13 +93,13 @@ EOF
 
 # Timetable Lambda Function
 resource "aws_lambda_function" "timetable" {
-  filename         = "timetable_lambda.zip"
-  function_name    = "${var.project_name}-${var.environment}-timetable"
-  role            = aws_iam_role.lambda_execution.arn
-  handler         = "lambda_function.lambda_handler"
-  runtime         = "python3.11"
-  timeout         = 30
-  memory_size     = 256
+  filename      = "timetable_lambda.zip"
+  function_name = "${var.project_name}-${var.environment}-timetable"
+  role          = aws_iam_role.lambda_execution.arn
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "python3.11"
+  timeout       = 30
+  memory_size   = 256
 
   layers = [aws_lambda_layer_version.dependencies.arn]
 
@@ -130,13 +130,13 @@ resource "aws_lambda_function" "timetable" {
 
 # Venue Management Lambda Function
 resource "aws_lambda_function" "venue_management" {
-  filename         = "venue_management_lambda.zip"
-  function_name    = "${var.project_name}-${var.environment}-venue-management"
-  role            = aws_iam_role.lambda_execution.arn
-  handler         = "lambda_function.lambda_handler"
-  runtime         = "python3.11"
-  timeout         = 30
-  memory_size     = 256
+  filename      = "venue_management_lambda.zip"
+  function_name = "${var.project_name}-${var.environment}-venue-management"
+  role          = aws_iam_role.lambda_execution.arn
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "python3.11"
+  timeout       = 30
+  memory_size   = 256
 
   layers = [aws_lambda_layer_version.dependencies.arn]
 
@@ -167,13 +167,13 @@ resource "aws_lambda_function" "venue_management" {
 
 # Notification Lambda Function
 resource "aws_lambda_function" "notification" {
-  filename         = "notification_lambda.zip"
-  function_name    = "${var.project_name}-${var.environment}-notification"
-  role            = aws_iam_role.lambda_execution.arn
-  handler         = "lambda_function.lambda_handler"
-  runtime         = "python3.11"
-  timeout         = 30
-  memory_size     = 256
+  filename      = "notification_lambda.zip"
+  function_name = "${var.project_name}-${var.environment}-notification"
+  role          = aws_iam_role.lambda_execution.arn
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "python3.11"
+  timeout       = 30
+  memory_size   = 256
 
   layers = [aws_lambda_layer_version.dependencies.arn]
 
@@ -210,7 +210,7 @@ data "archive_file" "timetable_lambda" {
   output_path = "timetable_lambda.zip"
 
   source {
-    content = file("${path.module}/src/timetable_lambda.py")
+    content  = file("${path.module}/src/timetable_lambda.py")
     filename = "lambda_function.py"
   }
 }
@@ -220,7 +220,7 @@ data "archive_file" "venue_management_lambda" {
   output_path = "venue_management_lambda.zip"
 
   source {
-    content = file("${path.module}/src/venue_management_lambda.py")
+    content  = file("${path.module}/src/venue_management_lambda.py")
     filename = "lambda_function.py"
   }
 }
@@ -230,7 +230,7 @@ data "archive_file" "notification_lambda" {
   output_path = "notification_lambda.zip"
 
   source {
-    content = file("${path.module}/src/notification_lambda.py")
+    content  = file("${path.module}/src/notification_lambda.py")
     filename = "lambda_function.py"
   }
 }
