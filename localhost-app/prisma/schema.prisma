@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Venue {
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  capacity    Int
+  facilities  String?
+  isAvailable Boolean  @default(true) @map("is_available")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+
+  // Relations
+  timetables Timetable[]
+
+  @@map("venues")
+}
+
+model Timetable {
+  id        Int              @id @default(autoincrement())
+  subject   String
+  lecturer  String
+  classRep  String           @map("class_rep")
+  date      DateTime
+  startTime DateTime         @map("start_time")
+  endTime   DateTime         @map("end_time")
+  venueId   Int?             @map("venue_id")
+  notes     String?
+  status    String           @default("scheduled") // scheduled, cancelled, completed, in_progress
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @default(now()) @updatedAt @map("updated_at")
+
+  // Relations
+  venue                     Venue?                     @relation(fields: [venueId], references: [id], onDelete: SetNull)
+  attendanceConfirmations   AttendanceConfirmation[]
+  notifications             Notification[]
+
+  @@map("timetables")
+}
+
+model AttendanceConfirmation {
+  id           Int                        @id @default(autoincrement())
+  timetableId  Int                        @map("timetable_id")
+  userId       String                     @map("user_id")
+  userType     String                     @map("user_type") // student, class_rep, lecturer
+  status       String                     // confirmed, declined, maybe
+  confirmedAt  DateTime                   @default(now()) @map("confirmed_at")
+
+  // Relations
+  timetable Timetable @relation(fields: [timetableId], references: [id], onDelete: Cascade)
+
+  @@unique([timetableId, userId])
+  @@map("attendance_confirmations")
+}
+
+model Notification {
+  id          Int                @id @default(autoincrement())
+  timetableId Int                @map("timetable_id")
+  type        String             // venue_change, attendance_confirmation, class_reminder, cancellation
+  message     String
+  recipients  String             // JSON as string for SQLite
+  sentAt      DateTime?          @map("sent_at")
+  status      String             @default("pending") // pending, sent, failed
+  createdAt   DateTime           @default(now()) @map("created_at")
+
+  // Relations
+  timetable Timetable @relation(fields: [timetableId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model User {
+  id                      Int     @id @default(autoincrement())
+  userId                  String  @unique @map("user_id")
+  email                   String  @unique
+  fullName                String  @map("full_name")
+  role                    String  // student, class_rep, lecturer, admin
+  phoneNumber             String? @map("phone_number")
+  notificationPreferences String  @default("{\"email\": true, \"sms\": false, \"push\": true}") @map("notification_preferences") // JSON as string for SQLite
+  isActive                Boolean @default(true) @map("is_active")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+// String constants for validation (used in TypeScript code)
+// TimetableStatus: "scheduled" | "cancelled" | "completed" | "in_progress"
+// UserType: "student" | "class_rep" | "lecturer"
+// AttendanceConfirmationStatus: "confirmed" | "declined" | "maybe"
+// NotificationType: "venue_change" | "attendance_confirmation" | "class_reminder" | "cancellation"
+// NotificationStatus: "pending" | "sent" | "failed"
+// UserRole: "student" | "class_rep" | "lecturer" | "admin"
