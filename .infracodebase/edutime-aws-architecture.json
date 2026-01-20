@@ -1,0 +1,145 @@
+{
+  "nodes": [
+    {
+      "id": "vpc",
+      "label": "VPC",
+      "subtitle": "edutime-vpc",
+      "icon": "/icons/aws/network/vpc.png",
+      "type": "container"
+    },
+    {
+      "id": "cloudfront",
+      "label": "CloudFront",
+      "subtitle": "edutime-cdn",
+      "icon": "/icons/aws/network/cloudfront.png"
+    },
+    {
+      "id": "s3",
+      "label": "S3 Bucket",
+      "subtitle": "edutime-static-assets",
+      "icon": "/icons/aws/storage/simple-storage-service-s3-bucket.png"
+    },
+    {
+      "id": "api-gateway",
+      "label": "API Gateway",
+      "subtitle": "edutime-api",
+      "icon": "/icons/aws/mobile/api-gateway.png",
+      "parentNode": "vpc"
+    },
+    {
+      "id": "lambda-timetable",
+      "label": "Lambda Function",
+      "subtitle": "timetable-handler",
+      "icon": "/icons/aws/compute/lambda.png",
+      "parentNode": "vpc"
+    },
+    {
+      "id": "lambda-venue",
+      "label": "Lambda Function",
+      "subtitle": "venue-management",
+      "icon": "/icons/aws/compute/lambda.png",
+      "parentNode": "vpc"
+    },
+    {
+      "id": "lambda-notification",
+      "label": "Lambda Function",
+      "subtitle": "notification-handler",
+      "icon": "/icons/aws/compute/lambda.png",
+      "parentNode": "vpc"
+    },
+    {
+      "id": "rds",
+      "label": "RDS PostgreSQL",
+      "subtitle": "edutime-db",
+      "icon": "/icons/aws/database/rds-postgresql-instance.png",
+      "parentNode": "vpc"
+    },
+    {
+      "id": "sns",
+      "label": "SNS",
+      "subtitle": "venue-notifications",
+      "icon": "/icons/aws/integration/simple-notification-service-sns.png"
+    },
+    {
+      "id": "iam",
+      "label": "IAM Roles",
+      "subtitle": "lambda-execution-roles",
+      "icon": "/icons/aws/security/identity-and-access-management-iam.png"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "cloudfront",
+      "target": "s3",
+      "label": "serves static assets"
+    },
+    {
+      "id": "e2",
+      "source": "cloudfront",
+      "target": "api-gateway",
+      "label": "routes API calls"
+    },
+    {
+      "id": "e3",
+      "source": "api-gateway",
+      "target": "lambda-timetable",
+      "label": "invokes"
+    },
+    {
+      "id": "e4",
+      "source": "api-gateway",
+      "target": "lambda-venue",
+      "label": "invokes"
+    },
+    {
+      "id": "e5",
+      "source": "api-gateway",
+      "target": "lambda-notification",
+      "label": "invokes"
+    },
+    {
+      "id": "e6",
+      "source": "lambda-timetable",
+      "target": "rds",
+      "label": "reads timetable data"
+    },
+    {
+      "id": "e7",
+      "source": "lambda-venue",
+      "target": "rds",
+      "label": "reads/writes venue data"
+    },
+    {
+      "id": "e8",
+      "source": "lambda-notification",
+      "target": "rds",
+      "label": "records confirmations"
+    },
+    {
+      "id": "e9",
+      "source": "lambda-notification",
+      "target": "sns",
+      "label": "publishes events"
+    },
+    {
+      "id": "e10",
+      "source": "iam",
+      "target": "lambda-timetable",
+      "label": "execution role"
+    },
+    {
+      "id": "e11",
+      "source": "iam",
+      "target": "lambda-venue",
+      "label": "execution role"
+    },
+    {
+      "id": "e12",
+      "source": "iam",
+      "target": "lambda-notification",
+      "label": "execution role"
+    }
+  ],
+  "name": "EduTime Campus Venue Management - AWS Architecture"
+}
